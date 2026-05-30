@@ -1356,6 +1356,7 @@
             overlayOpacity: 0,
             content: {
                 title: 'Свадьба состоится',
+                date: '2026-04-17',
                 font: "'Cormorant Garamond', serif",
                 fontSize: 48,
                 textColor: '#333333',
@@ -1374,6 +1375,7 @@
             overlayOpacity: 0,
             content: {
                 title: 'До нашей свадьбы осталось',
+                date: '2026-04-17',
                 font: "'Cormorant Garamond', serif",
                 fontSize: 36,
                 textColor: '#333333',
@@ -1588,6 +1590,7 @@
             overlayOpacity: 0,
             content: {
                 title: 'Свадьба состоится',
+                date: weddingDate,
                 font: globalFontHeading,
                 fontSize: 48,
                 textColor: '#333333',
@@ -1603,6 +1606,7 @@
             overlayOpacity: 0,
             content: {
                 title: 'До нашей свадьбы осталось',
+                date: weddingDate,
                 font: globalFontHeading,
                 fontSize: 36,
                 textColor: '#333333',
@@ -1787,7 +1791,6 @@
 
         renderSectionsList();
         renderPreview();
-        renderActiveSectionEditor();
     });
 
     // ===== SECTIONS LIST =====
@@ -1827,11 +1830,11 @@
         list.innerHTML = html;
     }
 
-    function renderSectionEditor(section) {
+        function renderSectionEditor(section) {
         let html = '';
-        const c = section.content;
+        const c = section.content || {};
 
-        // Background settings
+        // ===== BACKGROUND SETTINGS =====
         html += `<div class="field-group">
             <label class="field-label">Тип фона</label>
             <select class="field-input" onchange="updateSectionBgType('${section.id}', this.value)">
@@ -1870,79 +1873,64 @@
             </div>`;
         }
 
-        // Overlay
         if (section.bgType !== 'color') {
             html += `<div class="field-row">
                 <div class="field-group">
                     <label class="field-label">Цвет оверлея</label>
-                    <input type="color" class="field-input" value="${section.overlayColor}" onchange="updateSectionOverlay('${section.id}', 'color', this.value)">
+                    <input type="color" class="field-input" value="${section.overlayColor || '#000000'}" onchange="updateSectionOverlay('${section.id}', 'color', this.value)">
                 </div>
                 <div class="field-group">
-                    <label class="field-label">Прозрачность: <span id="op-${section.id}">${Math.round(section.overlayOpacity * 100)}%</span></label>
-                    <input type="range" min="0" max="100" value="${Math.round(section.overlayOpacity * 100)}" onchange="updateSectionOverlay('${section.id}', 'opacity', this.value / 100)">
+                    <label class="field-label">Прозрачность: <span id="op-${section.id}">${Math.round((section.overlayOpacity || 0) * 100)}%</span></label>
+                    <input type="range" min="0" max="100" value="${Math.round((section.overlayOpacity || 0) * 100)}" oninput="updateSectionOverlay('${section.id}', 'opacity', this.value / 100); document.getElementById('op-${section.id}').textContent=this.value+'%'">
                 </div>
             </div>`;
         }
 
-        // Content fields based on type
+        html += `<div class="section-separator"></div>
+        <h3 style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:18px; margin:15px 0 10px;">Содержимое</h3>`;
+
+        // ===== HERO =====
         if (section.type === 'hero') {
-            html += `<div class="field-group">
-                <label class="field-label">Подзаголовок</label>
-                <input class="field-input" value="${c.subtitle}" onchange="updateContent('${section.id}', 'subtitle', this.value)">
-            </div>
-            <div class="field-group">
-                <label class="field-label">Заголовок</label>
-                <input class="field-input" value="${c.title}" onchange="updateContent('${section.id}', 'title', this.value)">
-            </div>
-            <div class="field-group">
-                <label class="field-label">Имена</label>
-                <input class="field-input" value="${c.names}" onchange="updateContent('${section.id}', 'names', this.value)">
-            </div>`;
+            html += `
+            <div class="field-group"><label class="field-label">Подзаголовок</label><input class="field-input" value="${c.subtitle || ''}" onchange="updateContent('${section.id}', 'subtitle', this.value)"></div>
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Имена</label><input class="field-input" value="${c.names || ''}" onchange="updateContent('${section.id}', 'names', this.value)"></div>
+            <div class="field-group"><label class="field-label">Дата свадьбы</label><input type="date" class="field-input" value="${c.date || weddingDate}" onchange="updateContent('${section.id}', 'date', this.value); updateGlobalDate(this.value)"></div>`;
         }
 
+        // ===== SAVE DATE =====
         if (section.type === 'save-date') {
-            html += `<div class="field-group">
-                <label class="field-label">Метка</label>
-                <input class="field-input" value="${c.label}" onchange="updateContent('${section.id}', 'label', this.value)">
-            </div>
-            <div class="field-group">
-                <label class="field-label">Имена</label>
-                <input class="field-input" value="${c.names}" onchange="updateContent('${section.id}', 'names', this.value)">
-            </div>`;
+            html += `
+            <div class="field-group"><label class="field-label">Метка</label><input class="field-input" value="${c.label || ''}" onchange="updateContent('${section.id}', 'label', this.value)"></div>
+            <div class="field-group"><label class="field-label">Дата свадьбы</label><input type="date" class="field-input" value="${c.date || weddingDate}" onchange="updateContent('${section.id}', 'date', this.value); updateGlobalDate(this.value)"></div>
+            <div class="field-group"><label class="field-label">Имена</label><input class="field-input" value="${c.names || ''}" onchange="updateContent('${section.id}', 'names', this.value)"></div>`;
         }
 
-        if (c.title !== undefined && section.type !== 'hero' && section.type !== 'save-date' && section.type !== 'timing' && section.type !== 'countdown') {
-            html += `<div class="field-group">
-                <label class="field-label">Заголовок</label>
-                <input class="field-input" value="${c.title}" onchange="updateContent('${section.id}', 'title', this.value)">
-            </div>`;
+        // ===== CALENDAR =====
+        if (section.type === 'calendar') {
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Дата для календаря</label><input type="date" class="field-input" value="${c.date || weddingDate}" onchange="updateContent('${section.id}', 'date', this.value); updateGlobalDate(this.value); renderPreview()"></div>`;
         }
 
-        if (section.type === 'calendar' || section.type === 'countdown') {
-            html += `<div class="field-group">
-                <label class="field-label">Заголовок</label>
-                <input class="field-input" value="${c.title}" onchange="updateContent('${section.id}', 'title', this.value)">
-            </div>`;
+        // ===== COUNTDOWN =====
+        if (section.type === 'countdown') {
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Дата для таймера</label><input type="date" class="field-input" value="${c.date || weddingDate}" onchange="updateContent('${section.id}', 'date', this.value); updateGlobalDate(this.value)"></div>`;
         }
 
+        // ===== TIMING =====
         if (section.type === 'timing') {
-            html += `<div class="field-group">
-                <label class="field-label">Заголовок</label>
-                <input class="field-input" value="${c.title}" onchange="updateContent('${section.id}', 'title', this.value)">
-            </div>
-            <div class="field-group">
-                <label class="field-label">Время сбора гостей</label>
-                <input type="time" class="field-input" value="${c.gatherTime}" onchange="updateContent('${section.id}', 'gatherTime', this.value)">
-            </div>
-            <div class="divider"></div>
-            <label class="field-label">Элементы тайминга</label>
-            <div id="timing-items-editor">`;
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Время сбора гостей</label><input type="time" class="field-input" value="${c.gatherTime || '16:00'}" onchange="updateContent('${section.id}', 'gatherTime', this.value)"></div>
+            <div class="divider"></div><label class="field-label">Элементы тайминга</label>`;
             
-            c.items.forEach((item, idx) => {
+            (c.items || []).forEach((item, idx) => {
                 html += `
-                <div class="editor-item" id="ti-${idx}">
+                <div class="editor-item">
                     <div class="editor-item-header">
-                        <span class="drag-handle" draggable="true">⠿</span>
                         <span class="editor-item-title">${item.time} — ${item.label}</span>
                         <div class="editor-item-actions">
                             <button onclick="moveTimingItem('${section.id}', ${idx}, -1)">↑</button>
@@ -1952,190 +1940,125 @@
                     </div>
                     <div class="editor-item-content">
                         <div class="field-row">
-                            <div class="field-group">
-                                <label class="field-label">Время</label>
-                                <input type="time" class="field-input" value="${item.time}" onchange="updateTimingItem('${section.id}', ${idx}, 'time', this.value)">
-                            </div>
-                            <div class="field-group">
-                                <label class="field-label">Иконка</label>
+                            <div class="field-group"><label class="field-label">Время</label><input type="time" class="field-input" value="${item.time}" onchange="updateTimingItem('${section.id}', ${idx}, 'time', this.value)"></div>
+                            <div class="field-group"><label class="field-label">Иконка</label>
                                 <select class="field-input" onchange="updateTimingItem('${section.id}', ${idx}, 'icon', this.value)">
                                     <option value="location" ${item.icon === 'location' ? 'selected' : ''}>📍 Локация</option>
                                     <option value="rings" ${item.icon === 'rings' ? 'selected' : ''}>💍 Кольца</option>
-                                    <option value="glasses" ${item.icon === 'glasses' ? 'selected' : ''}> Бокалы</option>
+                                    <option value="glasses" ${item.icon === 'glasses' ? 'selected' : ''}>🥂 Бокалы</option>
                                     <option value="heart" ${item.icon === 'heart' ? 'selected' : ''}>❤️ Сердце</option>
                                     <option value="camera" ${item.icon === 'camera' ? 'selected' : ''}>📷 Фото</option>
                                     <option value="music" ${item.icon === 'music' ? 'selected' : ''}>🎵 Музыка</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="field-group">
-                            <label class="field-label">Описание</label>
-                            <input class="field-input" value="${item.label}" onchange="updateTimingItem('${section.id}', ${idx}, 'label', this.value)">
-                        </div>
+                        <div class="field-group"><label class="field-label">Описание</label><input class="field-input" value="${item.label}" onchange="updateTimingItem('${section.id}', ${idx}, 'label', this.value)"></div>
                     </div>
                 </div>`;
             });
-            
-            html += `</div>
-            <button class="add-item-btn" onclick="addTimingItem('${section.id}')">+ Добавить элемент</button>`;
+            html += `<button class="add-item-btn" onclick="addTimingItem('${section.id}')">+ Добавить элемент</button>`;
         }
 
+        // ===== LOCATION =====
         if (section.type === 'location') {
-            html += `<div class="field-group">
-                <label class="field-label">Описание</label>
-                <textarea class="field-input" onchange="updateContent('${section.id}', 'description', this.value)">${c.description}</textarea>
-            </div>
-            <div class="field-group">
-                <label class="field-label">Изображение</label>
-                <div class="file-upload">
-                    <input type="file" accept="image/*" onchange="handleContentUpload(this, '${section.id}', 'image')">
-                    <div class="file-upload-label ${c.image ? 'has-file' : ''}">
-                        <span class="icon">🖼</span>
-                        <span>${c.image ? 'Загружено' : 'Загрузить изображение'}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="field-group">
-                <label class="field-label">Видео (вместо фото)</label>
-                <div class="file-upload">
-                    <input type="file" accept="video/*" onchange="handleContentUpload(this, '${section.id}', 'video')">
-                    <div class="file-upload-label ${c.video ? 'has-file' : ''}">
-                        <span class="icon">🎬</span>
-                        <span>${c.video ? 'Загружено' : 'Загрузить видео'}</span>
-                    </div>
-                </div>
-            </div>`;
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Описание</label><textarea class="field-input" onchange="updateContent('${section.id}', 'description', this.value)">${c.description || ''}</textarea></div>
+            <div class="field-group"><label class="field-label">Изображение</label><div class="file-upload"><input type="file" accept="image/*" onchange="handleContentUpload(this, '${section.id}', 'image')"><div class="file-upload-label ${c.image ? 'has-file' : ''}"><span class="icon">🖼</span><span>${c.image ? 'Загружено' : 'Загрузить изображение'}</span></div></div></div>
+            <div class="field-group"><label class="field-label">Видео (вместо фото)</label><div class="file-upload"><input type="file" accept="video/*" onchange="handleContentUpload(this, '${section.id}', 'video')"><div class="file-upload-label ${c.video ? 'has-file' : ''}"><span class="icon">🎬</span><span>${c.video ? 'Загружено' : 'Загрузить видео'}</span></div></div></div>`;
         }
 
+        // ===== DRESSCODE =====
         if (section.type === 'dresscode') {
-            html += `<div class="field-group">
-                <label class="field-label">Описание</label>
-                <textarea class="field-input" onchange="updateContent('${section.id}', 'description', this.value)">${c.description}</textarea>
-            </div>
-            <label class="field-label">Палитра цветов</label>
-            <div class="color-palette-editor" id="color-palette-editor">`;
-            
-            c.colors.forEach((color, idx) => {
-                html += `
-                <div class="color-item-editor">
-                    <input type="color" value="${color}" onchange="updateColor('${section.id}', ${idx}, this.value)">
-                    <button class="remove-color" onclick="removeColor('${section.id}', ${idx})">×</button>
-                </div>`;
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Описание</label><textarea class="field-input" onchange="updateContent('${section.id}', 'description', this.value)">${c.description || ''}</textarea></div>
+            <label class="field-label">Палитра цветов</label><div class="color-palette-editor">`;
+            (c.colors || []).forEach((color, idx) => {
+                html += `<div class="color-item-editor"><input type="color" value="${color}" onchange="updateColor('${section.id}', ${idx}, this.value)"><button class="remove-color" onclick="removeColor('${section.id}', ${idx})">×</button></div>`;
             });
-            
-            html += `</div>
-            <button class="add-item-btn" style="margin-top:10px" onclick="addColor('${section.id}')">+ Добавить цвет</button>`;
+            html += `</div><button class="add-item-btn" style="margin-top:10px" onclick="addColor('${section.id}')">+ Добавить цвет</button>`;
         }
 
+        // ===== IMPORTANT =====
         if (section.type === 'important') {
-            html += `<label class="field-label">Слайды</label>`;
-            c.slides.forEach((slide, idx) => {
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <label class="field-label">Слайды</label>`;
+            (c.slides || []).forEach((slide, idx) => {
                 html += `
                 <div class="editor-item">
-                    <div class="editor-item-header">
-                        <span class="editor-item-title">Слайд ${idx + 1}</span>
-                        <div class="editor-item-actions">
-                            <button onclick="removeSlide('${section.id}', ${idx})">×</button>
-                        </div>
-                    </div>
-                    <div class="editor-item-content">
-                        <div class="field-group">
-                            <textarea class="field-input" onchange="updateSlide('${section.id}', ${idx}, this.value)">${slide}</textarea>
-                        </div>
-                    </div>
+                    <div class="editor-item-header"><span class="editor-item-title">Слайд ${idx + 1}</span><div class="editor-item-actions"><button onclick="removeSlide('${section.id}', ${idx})">×</button></div></div>
+                    <div class="editor-item-content"><div class="field-group"><textarea class="field-input" onchange="updateSlide('${section.id}', ${idx}, this.value)">${slide}</textarea></div></div>
                 </div>`;
             });
             html += `<button class="add-item-btn" onclick="addSlide('${section.id}')">+ Добавить слайд</button>`;
         }
 
+        // ===== RSVP =====
+        if (section.type === 'rsvp') {
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Текст дедлайна</label><textarea class="field-input" onchange="updateContent('${section.id}', 'deadline', this.value)">${c.deadline || ''}</textarea></div>`;
+        }
+
+        // ===== CONTACT =====
         if (section.type === 'contact') {
-            html += `<div class="field-group">
-                <label class="field-label">Кого показать</label>
-                <input class="field-input" value="${c.personLabel}" onchange="updateContent('${section.id}', 'personLabel', this.value)">
-            </div>
-            <div class="field-group">
-                <label class="field-label">Имя</label>
-                <input class="field-input" value="${c.personName}" onchange="updateContent('${section.id}', 'personName', this.value)">
-            </div>
-            <div class="field-group">
-                <label class="field-label">Телефон</label>
-                <input class="field-input" value="${c.phone}" onchange="updateContent('${section.id}', 'phone', this.value)">
-            </div>`;
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Кого показать</label><input class="field-input" value="${c.personLabel || ''}" onchange="updateContent('${section.id}', 'personLabel', this.value)"></div>
+            <div class="field-group"><label class="field-label">Имя</label><input class="field-input" value="${c.personName || ''}" onchange="updateContent('${section.id}', 'personName', this.value)"></div>
+            <div class="field-group"><label class="field-label">Телефон</label><input class="field-input" value="${c.phone || ''}" onchange="updateContent('${section.id}', 'phone', this.value)"></div>`;
         }
 
+        // ===== WISHES =====
         if (section.type === 'wishes') {
-            html += `<label class="field-label">Слайды</label>`;
-            c.slides.forEach((slide, idx) => {
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <label class="field-label">Слайды</label>`;
+            (c.slides || []).forEach((slide, idx) => {
                 html += `
                 <div class="editor-item">
-                    <div class="editor-item-header">
-                        <span class="editor-item-title">Слайд ${idx + 1}</span>
-                        <div class="editor-item-actions">
-                            <button onclick="removeSlide('${section.id}', ${idx})">×</button>
-                        </div>
-                    </div>
-                    <div class="editor-item-content">
-                        <div class="field-group">
-                            <textarea class="field-input" onchange="updateSlide('${section.id}', ${idx}, this.value)">${slide}</textarea>
-                        </div>
-                    </div>
+                    <div class="editor-item-header"><span class="editor-item-title">Слайд ${idx + 1}</span><div class="editor-item-actions"><button onclick="removeSlide('${section.id}', ${idx})">×</button></div></div>
+                    <div class="editor-item-content"><div class="field-group"><textarea class="field-input" onchange="updateSlide('${section.id}', ${idx}, this.value)">${slide}</textarea></div></div>
                 </div>`;
             });
             html += `<button class="add-item-btn" onclick="addSlide('${section.id}')">+ Добавить слайд</button>`;
         }
 
+        // ===== GALLERY =====
         if (section.type === 'gallery') {
-            html += `<div class="field-group">
-                <label class="field-label">Загрузить изображения</label>
-                <div class="file-upload">
-                    <input type="file" accept="image/*" multiple onchange="handleGalleryUpload(this, '${section.id}')">
-                    <div class="file-upload-label">
-                        <span class="icon">🖼</span>
-                        <span>Загрузить несколько изображений</span>
-                    </div>
-                </div>
-            </div>`;
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Загрузить изображения</label><div class="file-upload"><input type="file" accept="image/*" multiple onchange="handleGalleryUpload(this, '${section.id}')"><div class="file-upload-label"><span class="icon">🖼</span><span>Загрузить несколько изображений</span></div></div></div>`;
             if (c.images && c.images.length) {
                 html += `<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px;">`;
                 c.images.forEach((img, idx) => {
-                    html += `
-                    <div style="position:relative; aspect-ratio:1; overflow:hidden; border-radius:4px;">
-                        <img src="${img}" style="width:100%;height:100%;object-fit:cover;">
-                        <button style="position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,0.6);color:#fff;border:none;cursor:pointer;font-size:10px;" onclick="removeGalleryImage('${section.id}', ${idx})">×</button>
-                    </div>`;
+                    html += `<div style="position:relative; aspect-ratio:1; overflow:hidden; border-radius:4px;"><img src="${img}" style="width:100%;height:100%;object-fit:cover;"><button style="position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,0.6);color:#fff;border:none;cursor:pointer;font-size:10px;" onclick="removeGalleryImage('${section.id}', ${idx})">×</button></div>`;
                 });
                 html += `</div>`;
             }
         }
 
+        // ===== MUSIC =====
         if (section.type === 'music') {
-            html += `<div class="field-group">
-                <label class="field-label">Описание</label>
-                <textarea class="field-input" onchange="updateContent('${section.id}', 'description', this.value)">${c.description}</textarea>
-            </div>`;
-            html += `<label class="field-label">Песни</label>`;
-            c.songs.forEach((song, idx) => {
+            html += `
+            <div class="field-group"><label class="field-label">Заголовок</label><input class="field-input" value="${c.title || ''}" onchange="updateContent('${section.id}', 'title', this.value)"></div>
+            <div class="field-group"><label class="field-label">Описание</label><textarea class="field-input" onchange="updateContent('${section.id}', 'description', this.value)">${c.description || ''}</textarea></div>
+            <label class="field-label">Песни</label>`;
+            (c.songs || []).forEach((song, idx) => {
                 html += `
                 <div class="editor-item">
-                    <div class="editor-item-header">
-                        <span class="editor-item-title">Песня ${idx + 1}</span>
-                        <div class="editor-item-actions">
-                            <button onclick="removeSong('${section.id}', ${idx})">×</button>
-                        </div>
-                    </div>
-                    <div class="editor-item-content">
-                        <div class="field-group">
-                            <input class="field-input" value="${song}" onchange="updateSong('${section.id}', ${idx}, this.value)">
-                        </div>
-                    </div>
+                    <div class="editor-item-header"><span class="editor-item-title">Песня ${idx + 1}</span><div class="editor-item-actions"><button onclick="removeSong('${section.id}', ${idx})">×</button></div></div>
+                    <div class="editor-item-content"><div class="field-group"><input class="field-input" value="${song}" onchange="updateSong('${section.id}', ${idx}, this.value)"></div></div>
                 </div>`;
             });
             html += `<button class="add-item-btn" onclick="addSong('${section.id}')">+ Добавить песню</button>`;
         }
 
-        // Typography
+        // ===== TYPOGRAPHY (ALL SECTIONS) =====
         html += `<div class="divider"></div>
-        <label class="field-label">Типографика</label>
+        <h3 style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:18px; margin:15px 0 10px;">Типографика</h3>
         <div class="field-group">
             <label class="field-label">Шрифт</label>
             <select class="field-input" onchange="updateContent('${section.id}', 'font', this.value)">
@@ -2154,7 +2077,7 @@
         <div class="field-row">
             <div class="field-group">
                 <label class="field-label">Размер: <span id="fs-${section.id}">${c.fontSize || 36}px</span></label>
-                <input type="range" min="16" max="120" value="${c.fontSize || 36}" onchange="updateContent('${section.id}', 'fontSize', parseInt(this.value)); document.getElementById('fs-${section.id}').textContent=this.value+'px'">
+                <input type="range" min="16" max="120" value="${c.fontSize || 36}" oninput="updateContent('${section.id}', 'fontSize', parseInt(this.value)); document.getElementById('fs-${section.id}').textContent=this.value+'px'">
             </div>
             <div class="field-group">
                 <label class="field-label">Цвет текста</label>
@@ -2165,16 +2088,15 @@
             <label class="field-label">Выравнивание</label>
             <select class="field-input" onchange="updateContent('${section.id}', 'textAlign', this.value)">
                 <option value="left" ${c.textAlign === 'left' ? 'selected' : ''}>По левому краю</option>
-                <option value="center" ${c.textAlign === 'center' ? 'selected' : ''}>По центру</option>
+                <option value="center" ${c.textAlign === 'center' || !c.textAlign ? 'selected' : ''}>По центру</option>
                 <option value="right" ${c.textAlign === 'right' ? 'selected' : ''}>По правому краю</option>
             </select>
         </div>`;
 
-        // Line height for hero
         if (section.type === 'hero') {
             html += `<div class="field-group">
                 <label class="field-label">Межстрочный интервал: <span id="lh-${section.id}">${(c.lineHeight || 1.2).toFixed(1)}</span></label>
-                <input type="range" min="0.8" max="2.5" step="0.1" value="${c.lineHeight || 1.2}" onchange="updateContent('${section.id}', 'lineHeight', parseFloat(this.value)); document.getElementById('lh-${section.id}').textContent=parseFloat(this.value).toFixed(1)">
+                <input type="range" min="0.8" max="2.5" step="0.1" value="${c.lineHeight || 1.2}" oninput="updateContent('${section.id}', 'lineHeight', parseFloat(this.value)); document.getElementById('lh-${section.id}').textContent=parseFloat(this.value).toFixed(1)">
             </div>`;
         }
 
@@ -2258,7 +2180,6 @@
             newSection.content.names = `${brideName.toUpperCase()} И ${groomName.toUpperCase()}`;
         }
         
-        // Add at the end or after active section
         const activeIndex = sections.findIndex(s => s.id === activeSectionId);
         if (activeIndex >= 0) {
             sections.splice(activeIndex + 1, 0, newSection);
@@ -2278,8 +2199,16 @@
         const section = sections.find(s => s.id === sectionId);
         if (section && section.content) {
             section.content[key] = value;
+            if (key === 'date') {
+                weddingDate = value;
+            }
             renderPreview();
         }
+    }
+
+    function updateGlobalDate(newDate) {
+        weddingDate = newDate;
+        renderPreview();
     }
 
     function updateSectionBgType(sectionId, type) {
@@ -2307,8 +2236,6 @@
                 section.overlayColor = value;
             } else {
                 section.overlayOpacity = value;
-                const el = document.getElementById('op-' + sectionId);
-                if (el) el.textContent = Math.round(value * 100) + '%';
             }
             renderPreview();
         }
@@ -2390,7 +2317,6 @@
         if (section && section.content.items && section.content.items[idx]) {
             section.content.items[idx][key] = value;
             renderPreview();
-            // Update display in editor
             const editorItem = document.querySelector(`#ti-${idx} .editor-item-title`);
             if (editorItem) {
                 const time = section.content.items[idx].time;
@@ -2538,8 +2464,6 @@
 
         frame.innerHTML = html;
 
-        // Initialize sliders
-        initSliders();
         startCountdown();
     }
 
@@ -2550,31 +2474,23 @@
         const textAlign = c.textAlign || 'center';
         const fontSize = c.fontSize || 36;
 
-        // Background
         let bgHtml = '';
         if (section.bgType === 'color') {
             bgHtml = `style="background-color:${section.bgValue || '#fff'}"`;
-        } else if (section.bgType === 'image') {
-            bgHtml = '';
-        } else if (section.bgType === 'video') {
-            bgHtml = '';
         }
 
         let sectionHtml = `<section class="preview-section sec-${section.type}" ${bgHtml}>`;
 
-        // Background media
         if (section.bgType === 'image' && section.bgValue) {
             sectionHtml += `<div class="preview-section-bg"><img src="${section.bgValue}" style="width:100%;height:100%;object-fit:cover;"></div>`;
         } else if (section.bgType === 'video' && section.bgVideo) {
             sectionHtml += `<div class="preview-section-bg"><video autoplay muted loop playsinline><source src="${section.bgVideo}" type="video/mp4"></video></div>`;
         }
 
-        // Overlay
         if (section.bgType !== 'color') {
             sectionHtml += `<div class="preview-section-overlay" style="background:${section.overlayColor};opacity:${section.overlayOpacity};"></div>`;
         }
 
-        // Content
         sectionHtml += `<div class="preview-section-content">`;
 
         switch (section.type) {
@@ -2600,28 +2516,30 @@
                 break;
 
             case 'calendar':
+                const calendarDate = c.date || weddingDate;
                 sectionHtml += `
                     <div style="text-align:${textAlign}; padding:60px 40px;">
                         <h2 style="font-family:${fontFamily}; font-size:${fontSize}px; font-weight:300; letter-spacing:6px; text-transform:uppercase; margin-bottom:40px; color:${textColor};">${c.title || ''}</h2>
                         <div style="max-width:400px; margin:0 auto;">
-                            <div style="font-family:${fontFamily}; font-size:24px; margin-bottom:30px; letter-spacing:4px;">${getMonthName(c.date)} ${new Date(c.date).getFullYear()}</div>
+                            <div style="font-family:${fontFamily}; font-size:24px; margin-bottom:30px; letter-spacing:4px;">${getMonthName(calendarDate)} ${new Date(calendarDate).getFullYear()}</div>
                             <div class="calendar-grid">
                                 <div class="cal-day-header">Пн</div><div class="cal-day-header">Вт</div><div class="cal-day-header">Ср</div><div class="cal-day-header">Чт</div><div class="cal-day-header">Пт</div><div class="cal-day-header we">Сб</div><div class="cal-day-header we">Вс</div>
-                                ${generateCalendarDays(c.date)}
+                                ${generateCalendarDays(calendarDate)}
                             </div>
-                            <div style="font-family:${fontFamily}; font-size:32px; margin-top:30px; letter-spacing:4px; color:${textColor};">${formatDate(c.date)}</div>
+                            <div style="font-family:${fontFamily}; font-size:32px; margin-top:30px; letter-spacing:4px; color:${textColor};">${formatDate(calendarDate)}</div>
                         </div>
                     </div>
                 `;
                 break;
 
             case 'countdown':
+                const countdownDate = c.date || weddingDate;
                 sectionHtml += `
                     <div style="text-align:${textAlign}; padding:60px 40px;">
                         <h2 style="font-family:${fontFamily}; font-size:${fontSize}px; font-weight:300; letter-spacing:6px; text-transform:uppercase; margin-bottom:50px; color:${textColor};">${c.title || ''}</h2>
                         <div class="countdown-grid">
                             <div class="countdown-item">
-                                <span class="countdown-number" id="cd-days">00</span>
+                                <span class="countdown-number" id="cd-days" data-date="${countdownDate}">00</span>
                                 <span class="countdown-label">дней</span>
                             </div>
                             <div class="countdown-item">
@@ -2642,7 +2560,7 @@
                 break;
 
             case 'timing':
-                const cols = c.items.length <= 2 ? 'cols-2' : c.items.length <= 3 ? 'cols-3' : c.items.length <= 4 ? 'cols-4' : 'cols-5';
+                const cols = (c.items || []).length <= 2 ? 'cols-2' : (c.items || []).length <= 3 ? 'cols-3' : (c.items || []).length <= 4 ? 'cols-4' : 'cols-5';
                 sectionHtml += `
                     <div style="padding:60px 40px;">
                         <div class="timing-header" style="text-align:${textAlign};">
@@ -2652,7 +2570,7 @@
                         <div class="timeline-container">
                             <div class="timeline-line"></div>
                             <div class="timeline-items ${cols}">
-                                ${c.items.map(item => `
+                                ${(c.items || []).map(item => `
                                     <div class="timeline-item">
                                         <div class="timeline-icon-wrap">${icons[item.icon] || icons.heart}</div>
                                         <div class="timeline-time" style="font-family:${fontFamily}; color:${textColor};">${item.time}</div>
@@ -2710,7 +2628,7 @@
                 `;
                 break;
 
-            case 'rsvp':
+                        case 'rsvp':
                 sectionHtml += `
                     <div style="padding:60px 40px;">
                         <div class="rsvp-container">
@@ -2729,6 +2647,18 @@
                                             <div class="radio-item"><input type="radio" name="attendance"><span>Да, с удовольствием</span></div>
                                             <div class="radio-item"><input type="radio" name="attendance"><span>Не смогу</span></div>
                                         </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top:20px;">
+                                        <label>С кем Вы придете?</label>
+                                        <div class="radio-group">
+                                            <div class="radio-item"><input type="radio" name="companion" value="alone"><span>Один/Одна</span></div>
+                                            <div class="radio-item"><input type="radio" name="companion" value="pair"><span>С парой</span></div>
+                                            <div class="radio-item"><input type="radio" name="companion" value="family"><span>С семьей/детьми</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Количество гостей (включая Вас)</label>
+                                        <input type="text" placeholder="Например: 2">
                                     </div>
                                 </div>
                                 <div>
@@ -2838,7 +2768,8 @@
     }
 
     function generateCalendarDays(dateStr) {
-        const date = new Date(dateStr);
+        const targetDate = dateStr || weddingDate;
+        const date = new Date(targetDate);
         const year = date.getFullYear();
         const month = date.getMonth();
         const firstDay = new Date(year, month, 1);
@@ -2853,16 +2784,12 @@
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const isWeekend = (startingDay + day - 1) % 7 >= 5;
             const isActive = day === activeDay;
-            html += `<div class="cal-day${isActive ? ' active' : ''}">${day}</div>`;
+            html += `<div class="cal-day${isActive ? ' active' : ''}${isWeekend && !isActive ? ' we' : ''}">${day}</div>`;
         }
         return html;
     }
 
     // ===== SLIDERS =====
-    function initSliders() {
-        // Sliders are initialized inline with onclick handlers
-    }
-
     function sliderPrev(sectionId) {
         const container = document.querySelector(`[data-slider="${sectionId}"]`);
         if (!container) return;
@@ -2920,10 +2847,17 @@
     }
 
     // ===== COUNTDOWN =====
+    let countdownInterval = null;
+    
     function startCountdown() {
-        const target = new Date(weddingDate);
+        if (countdownInterval) clearInterval(countdownInterval);
         
         function update() {
+            const daysEl = document.getElementById('cd-days');
+            if (!daysEl) return;
+            
+            const targetDateStr = daysEl.getAttribute('data-date') || weddingDate;
+            const target = new Date(targetDateStr);
             const now = new Date();
             const diff = target - now;
             
@@ -2940,19 +2874,19 @@
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
-            const daysEl = document.getElementById('cd-days');
-            const hoursEl = document.getElementById('cd-hours');
-            const minutesEl = document.getElementById('cd-minutes');
-            const secondsEl = document.getElementById('cd-seconds');
+            const dEl = document.getElementById('cd-days');
+            const hEl = document.getElementById('cd-hours');
+            const mEl = document.getElementById('cd-minutes');
+            const sEl = document.getElementById('cd-seconds');
             
-            if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+            if (dEl) dEl.textContent = String(days).padStart(2, '0');
+            if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+            if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+            if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
         }
         
         update();
-        setInterval(update, 1000);
+        countdownInterval = setInterval(update, 1000);
     }
 
     // ===== DEVICE PREVIEW =====
@@ -3191,8 +3125,12 @@
         }
         
         function updateCountdown() {
+            const daysEl = document.getElementById('cd-days');
+            if (!daysEl) return;
+            const targetDateStr = daysEl.getAttribute('data-date') || '${weddingDate}';
+            const target = new Date(targetDateStr);
             const now = new Date();
-            const diff = weddingDate - now;
+            const diff = target - now;
             if (diff <= 0) {
                 ['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(id => {
                     const el = document.getElementById(id);
