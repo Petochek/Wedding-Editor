@@ -8,1119 +8,1113 @@
 <style>
 /* ===== ГЛОБАЛЬНЫЕ ФИКСЫ ===== */
 html, body {
-    overflow-x: hidden;
-    width: 100%;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
+overflow-x: hidden;
+width: 100%;
+-webkit-text-size-adjust: 100%;
+-ms-text-size-adjust: 100%;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: 'Montserrat', sans-serif;
-    background: #1a1a1a;
-    color: #333;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+font-family: 'Montserrat', sans-serif;
+background: #1a1a1a;
+color: #333;
+overflow: hidden;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+word-wrap: break-word;
+overflow-wrap: break-word;
 }
 img, video {
-    max-width: 100%;
-    height: auto;
-    display: block;
+max-width: 100%;
+height: auto;
+display: block;
 }
 .editor-container {
-    display: flex;
-    height: 100vh;
+display: flex;
+height: 100vh;
 }
 /* ===== SIDEBAR ===== */
 .sidebar {
-    width: 420px;
-    min-width: 420px;
-    background: #fff;
-    border-right: 1px solid #e0e0e0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    z-index: 100;
+width: 420px;
+min-width: 420px;
+background: #fff;
+border-right: 1px solid #e0e0e0;
+display: flex;
+flex-direction: column;
+height: 100vh;
+z-index: 100;
 }
 .sidebar-header {
-    padding: 20px 25px;
-    background: #1a1a1a;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
+padding: 20px 25px;
+background: #1a1a1a;
+color: #fff;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-shrink: 0;
 }
 .sidebar-header h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 300;
-    letter-spacing: 3px;
+font-family: 'Cormorant Garamond', serif;
+font-size: 22px;
+font-weight: 300;
+letter-spacing: 3px;
 }
 .sidebar-tabs {
-    display: flex;
-    border-bottom: 1px solid #e0e0e0;
-    flex-shrink: 0;
-    background: #fafafa;
+display: flex;
+border-bottom: 1px solid #e0e0e0;
+flex-shrink: 0;
+background: #fafafa;
 }
 .sidebar-tab {
-    flex: 1;
-    padding: 12px 8px;
-    text-align: center;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    border: none;
-    background: none;
-    color: #999;
-    transition: all 0.3s;
-    border-bottom: 2px solid transparent;
+flex: 1;
+padding: 12px 8px;
+text-align: center;
+font-size: 11px;
+text-transform: uppercase;
+letter-spacing: 1px;
+cursor: pointer;
+border: none;
+background: none;
+color: #999;
+transition: all 0.3s;
+border-bottom: 2px solid transparent;
 }
 .sidebar-tab.active {
-    color: #1a1a1a;
-    border-bottom-color: #1a1a1a;
-    background: #fff;
+color: #1a1a1a;
+border-bottom-color: #1a1a1a;
+background: #fff;
 }
 .sidebar-tab:hover {
-    color: #333;
+color: #333;
 }
 .sidebar-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px 25px;
+flex: 1;
+overflow-y: auto;
+padding: 20px 25px;
 }
 .sidebar-content::-webkit-scrollbar {
-    width: 6px;
+width: 6px;
 }
 .sidebar-content::-webkit-scrollbar-track {
-    background: #f0f0f0;
+background: #f0f0f0;
 }
 .sidebar-content::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 3px;
+background: #ccc;
+border-radius: 3px;
 }
 .tab-panel {
-    display: none;
+display: none;
 }
 .tab-panel.active {
-    display: block;
+display: block;
 }
 /* ===== SECTIONS LIST ===== */
 .section-item {
-    background: #f9f9f9;
-    border: 1px solid #e8e8e8;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    overflow: hidden;
-    transition: all 0.3s;
+background: #f9f9f9;
+border: 1px solid #e8e8e8;
+border-radius: 8px;
+margin-bottom: 8px;
+overflow: hidden;
+transition: all 0.3s;
 }
 .section-item:hover {
-    border-color: #ccc;
+border-color: #ccc;
 }
 .section-item.active {
-    border-color: #1a1a1a;
-    box-shadow: 0 0 0 1px #1a1a1a;
+border-color: #1a1a1a;
+box-shadow: 0 0 0 1px #1a1a1a;
 }
 .section-item-header {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    cursor: pointer;
-    gap: 10px;
+display: flex;
+align-items: center;
+padding: 12px 15px;
+cursor: pointer;
+gap: 10px;
 }
 .section-item-header:hover {
-    background: #f0f0f0;
+background: #f0f0f0;
 }
 .drag-handle {
-    cursor: grab;
-    color: #ccc;
-    font-size: 16px;
-    user-select: none;
+cursor: grab;
+color: #ccc;
+font-size: 16px;
+user-select: none;
 }
 .drag-handle:active {
-    cursor: grabbing;
+cursor: grabbing;
 }
 .section-item-title {
-    flex: 1;
-    font-size: 13px;
-    font-weight: 500;
-    color: #333;
+flex: 1;
+font-size: 13px;
+font-weight: 500;
+color: #333;
 }
 .section-item-actions {
-    display: flex;
-    gap: 5px;
+display: flex;
+gap: 5px;
 }
 .section-btn {
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #666;
-    transition: all 0.2s;
+width: 28px;
+height: 28px;
+border: none;
+background: #fff;
+border-radius: 4px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 14px;
+color: #666;
+transition: all 0.2s;
 }
 .section-btn:hover {
-    background: #1a1a1a;
-    color: #fff;
+background: #1a1a1a;
+color: #fff;
 }
 .section-btn.delete:hover {
-    background: #e74c3c;
+background: #e74c3c;
 }
 .section-item-content {
-    padding: 0 15px 15px;
-    display: none;
+padding: 0 15px 15px;
+display: none;
 }
 .section-item.active .section-item-content {
-    display: block;
+display: block;
 }
 .section-visibility {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 10px;
 }
 .section-visibility input[type="checkbox"] {
-    cursor: pointer;
+cursor: pointer;
 }
 .section-visibility label {
-    font-size: 11px;
-    color: #999;
-    cursor: pointer;
+font-size: 11px;
+color: #999;
+cursor: pointer;
 }
 /* ===== FORM ELEMENTS ===== */
 .field-group {
-    margin-bottom: 15px;
+margin-bottom: 15px;
 }
 .field-label {
-    display: block;
-    font-size: 11px;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
+display: block;
+font-size: 11px;
+color: #999;
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-bottom: 6px;
 }
 .field-input {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    transition: border 0.3s;
-    background: #fff;
+width: 100%;
+padding: 10px 12px;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-family: 'Montserrat', sans-serif;
+font-size: 13px;
+transition: border 0.3s;
+background: #fff;
 }
 .field-input:focus {
-    outline: none;
-    border-color: #1a1a1a;
+outline: none;
+border-color: #1a1a1a;
 }
 textarea.field-input {
-    resize: vertical;
-    min-height: 70px;
+resize: vertical;
+min-height: 70px;
 }
 .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
 }
 .field-row-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 10px;
 }
 select.field-input {
-    cursor: pointer;
+cursor: pointer;
 }
 input[type="color"].field-input {
-    padding: 4px;
-    height: 40px;
-    cursor: pointer;
+padding: 4px;
+height: 40px;
+cursor: pointer;
 }
 input[type="range"] {
-    width: 100%;
-    margin: 5px 0;
+width: 100%;
+margin: 5px 0;
 }
 .range-value {
-    font-size: 11px;
-    color: #999;
-    text-align: right;
+font-size: 11px;
+color: #999;
+text-align: right;
 }
 /* ===== FILE UPLOAD ===== */
 .file-upload {
-    position: relative;
-    margin-bottom: 12px;
+position: relative;
+margin-bottom: 12px;
 }
 .file-upload input[type="file"] {
-    position: absolute;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
+position: absolute;
+opacity: 0;
+width: 100%;
+height: 100%;
+cursor: pointer;
 }
 .file-upload-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px;
-    background: #f5f5f5;
-    border: 2px dashed #ddd;
-    border-radius: 6px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 12px;
-    color: #666;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+padding: 12px;
+background: #f5f5f5;
+border: 2px dashed #ddd;
+border-radius: 6px;
+text-align: center;
+cursor: pointer;
+transition: all 0.3s;
+font-size: 12px;
+color: #666;
 }
 .file-upload-label:hover {
-    border-color: #999;
-    background: #f0f0f0;
+border-color: #999;
+background: #f0f0f0;
 }
 .file-upload-label.has-file {
-    border-color: #4CAF50;
-    background: #f0fff0;
-    color: #4CAF50;
+border-color: #4CAF50;
+background: #f0fff0;
+color: #4CAF50;
 }
 .file-upload-label .icon {
-    font-size: 18px;
+font-size: 18px;
 }
 /* ===== BUTTONS ===== */
 .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+padding: 10px 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-family: 'Montserrat', sans-serif;
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 1px;
+transition: all 0.3s;
+display: inline-flex;
+align-items: center;
+gap: 6px;
 }
 .btn-primary {
-    background: #1a1a1a;
-    color: #fff;
+background: #1a1a1a;
+color: #fff;
 }
 .btn-primary:hover {
-    background: #333;
+background: #333;
 }
 .btn-secondary {
-    background: #f0f0f0;
-    color: #333;
+background: #f0f0f0;
+color: #333;
 }
 .btn-secondary:hover {
-    background: #e0e0e0;
+background: #e0e0e0;
 }
 .btn-success {
-    background: #4CAF50;
-    color: #fff;
+background: #4CAF50;
+color: #fff;
 }
 .btn-success:hover {
-    background: #45a049;
+background: #45a049;
 }
 .btn-danger {
-    background: #e74c3c;
-    color: #fff;
+background: #e74c3c;
+color: #fff;
 }
 .btn-danger:hover {
-    background: #c0392b;
+background: #c0392b;
 }
 .btn-block {
-    width: 100%;
-    justify-content: center;
+width: 100%;
+justify-content: center;
 }
 .btn-group {
-    display: flex;
-    gap: 8px;
-    margin-top: 15px;
-    flex-wrap: wrap;
+display: flex;
+gap: 8px;
+margin-top: 15px;
+flex-wrap: wrap;
 }
 /* ===== ADD SECTION BUTTON ===== */
 .add-section-btn {
-    width: 100%;
-    padding: 15px;
-    border: 2px dashed #ddd;
-    border-radius: 8px;
-    background: none;
-    cursor: pointer;
-    color: #999;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s;
-    margin-top: 15px;
+width: 100%;
+padding: 15px;
+border: 2px dashed #ddd;
+border-radius: 8px;
+background: none;
+cursor: pointer;
+color: #999;
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 1px;
+transition: all 0.3s;
+margin-top: 15px;
 }
 .add-section-btn:hover {
-    border-color: #1a1a1a;
-    color: #1a1a1a;
+border-color: #1a1a1a;
+color: #1a1a1a;
 }
 /* ===== MODAL ===== */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0,0,0,0.5);
+z-index: 1000;
+display: none;
+align-items: center;
+justify-content: center;
 }
 .modal-overlay.active {
-    display: flex;
+display: flex;
 }
 .modal {
-    background: #fff;
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
+background: #fff;
+border-radius: 12px;
+padding: 30px;
+max-width: 600px;
+width: 90%;
+max-height: 80vh;
+overflow-y: auto;
 }
 .modal h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 20px;
+font-family: 'Cormorant Garamond', serif;
+font-size: 24px;
+font-weight: 400;
+margin-bottom: 20px;
 }
 .modal-close {
-    float: right;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #999;
+float: right;
+background: none;
+border: none;
+font-size: 24px;
+cursor: pointer;
+color: #999;
 }
 /* ===== PREVIEW ===== */
 .preview-area {
-    flex: 1;
-    background: #2a2a2a;
-    overflow-y: auto;
-    padding: 0;
+flex: 1;
+background: #2a2a2a;
+overflow-y: auto;
+padding: 0;
 }
 .preview-toolbar {
-    position: sticky;
-    top: 0;
-    background: #1a1a1a;
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 50;
-    border-bottom: 1px solid #333;
+position: sticky;
+top: 0;
+background: #1a1a1a;
+padding: 12px 20px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+z-index: 50;
+border-bottom: 1px solid #333;
 }
 .preview-toolbar-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+display: flex;
+align-items: center;
+gap: 15px;
 }
 .preview-toolbar-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+display: flex;
+align-items: center;
+gap: 10px;
 }
 .device-btn {
-    padding: 6px 12px;
-    border: 1px solid #444;
-    background: none;
-    color: #999;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.2s;
+padding: 6px 12px;
+border: 1px solid #444;
+background: none;
+color: #999;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+transition: all 0.2s;
 }
 .device-btn.active {
-    border-color: #fff;
-    color: #fff;
-    background: #333;
+border-color: #fff;
+color: #fff;
+background: #333;
 }
 .preview-frame-container {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    min-height: calc(100vh - 53px);
+display: flex;
+justify-content: center;
+padding: 20px;
+min-height: calc(100vh - 53px);
 }
 .preview-frame {
-    background: #fff;
-    max-width: 1200px;
-    width: 100%;
-    box-shadow: 0 0 50px rgba(0,0,0,0.3);
-    transition: max-width 0.3s;
+background: #fff;
+max-width: 1200px;
+width: 100%;
+box-shadow: 0 0 50px rgba(0,0,0,0.3);
+transition: max-width 0.3s;
 }
 .preview-frame.mobile {
-    max-width: 375px;
+max-width: 375px;
 }
 .preview-frame.tablet {
-    max-width: 768px;
+max-width: 768px;
 }
 /* ===== PREVIEW SECTIONS STYLES ===== */
 .preview-section {
-    position: relative;
-    overflow: hidden;
+position: relative;
+overflow: hidden;
 }
 .preview-section-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-    /* Оптимизация для мобильных */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    will-change: transform;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-size: cover;
+background-position: center;
+z-index: 0;
+-webkit-transform: translateZ(0);
+transform: translateZ(0);
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+will-change: transform;
 }
 .preview-section-bg video {
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    object-position: center;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+width: 100%;
+height: 100%;
+min-width: 100%;
+min-height: 100%;
+object-fit: cover;
+object-position: center;
+-webkit-transform: translateZ(0);
+transform: translateZ(0);
 }
 .preview-section-bg img {
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    object-position: center;
-    /* Оптимизация рендеринга */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+width: 100%;
+height: 100%;
+min-width: 100%;
+min-height: 100%;
+object-fit: cover;
+object-position: center;
+-webkit-transform: translateZ(0);
+transform: translateZ(0);
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
 }
 .preview-section-content {
-    position: relative;
-    z-index: 1;
+position: relative;
+z-index: 1;
 }
 .preview-section-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 0;
 }
 /* Hero Section */
 .sec-hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 .sec-hero .preview-section-content {
-    text-align: center;
-    padding: 60px 40px;
+text-align: center;
+padding: 60px 40px;
 }
 /* Save Date Section */
 .sec-save-date {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 .sec-save-date .preview-section-content {
-    text-align: center;
-    padding: 60px 40px;
+text-align: center;
+padding: 60px 40px;
 }
 /* Calendar Section */
 .sec-calendar {
-    padding: 80px 40px;
-    text-align: center;
+padding: 80px 40px;
+text-align: center;
 }
 .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    max-width: 400px;
-    margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(7, 1fr);
+gap: 8px;
+max-width: 400px;
+margin: 0 auto;
 }
 .cal-day-header {
-    font-size: 11px;
-    color: #999;
-    padding: 8px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+font-size: 11px;
+color: #999;
+padding: 8px;
+text-transform: uppercase;
+letter-spacing: 2px;
 }
 .cal-day-header.we {
-    color: #d4a5a5;
+color: #d4a5a5;
 }
 .cal-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #666;
-    border-radius: 50%;
+aspect-ratio: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 14px;
+color: #666;
+border-radius: 50%;
 }
 .cal-day.active {
-    background: #1a1a1a;
-    color: #fff;
-    width: 46px;
-    height: 46px;
-    margin: 0 auto;
+background: #1a1a1a;
+color: #fff;
+width: 46px;
+height: 46px;
+margin: 0 auto;
 }
 /* Countdown Section */
 .sec-countdown {
-    padding: 80px 40px;
-    text-align: center;
+padding: 80px 40px;
+text-align: center;
 }
 .countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    max-width: 700px;
-    margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 20px;
+max-width: 700px;
+margin: 0 auto;
 }
 .countdown-item {
-    background: #fafafa;
-    padding: 25px 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+background: #fafafa;
+padding: 25px 15px;
+border: 1px solid #e0e0e0;
+border-radius: 8px;
 }
 .countdown-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
-    font-weight: 300;
-    display: block;
+font-family: 'Cormorant Garamond', serif;
+font-size: 48px;
+font-weight: 300;
+display: block;
 }
 .countdown-label {
-    font-size: 11px;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+font-size: 11px;
+color: #999;
+text-transform: uppercase;
+letter-spacing: 2px;
 }
 /* Timing Section */
 .sec-timing {
-    padding: 80px 40px;
+padding: 80px 40px;
 }
 .timing-header {
-    text-align: center;
-    margin-bottom: 50px;
+text-align: center;
+margin-bottom: 50px;
 }
 .timeline-container {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
+max-width: 900px;
+margin: 0 auto;
+position: relative;
 }
 .timeline-line {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: #ddd;
+position: absolute;
+top: 40px;
+left: 0;
+right: 0;
+height: 1px;
+background: #ddd;
 }
 .timeline-items {
-    display: grid;
-    gap: 30px;
+display: grid;
+gap: 30px;
 }
 .timeline-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
 .timeline-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .timeline-items.cols-4 { grid-template-columns: repeat(4, 1fr); }
 .timeline-items.cols-5 { grid-template-columns: repeat(5, 1fr); }
 .timeline-item {
-    text-align: center;
-    position: relative;
+text-align: center;
+position: relative;
 }
 .timeline-icon-wrap {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 15px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
+width: 80px;
+height: 80px;
+margin: 0 auto 15px;
+background: #fff;
+border: 1px solid #ddd;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+z-index: 2;
 }
 .timeline-icon-wrap svg {
-    width: 36px;
-    height: 36px;
-    stroke: #666;
-    fill: none;
-    stroke-width: 1.5;
+width: 36px;
+height: 36px;
+stroke: #666;
+fill: none;
+stroke-width: 1.5;
 }
 .timeline-time {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-weight: 300;
-    margin-bottom: 8px;
+font-family: 'Cormorant Garamond', serif;
+font-size: 26px;
+font-weight: 300;
+margin-bottom: 8px;
 }
 .timeline-label {
-    font-size: 12px;
-    color: #666;
-    line-height: 1.6;
+font-size: 12px;
+color: #666;
+line-height: 1.6;
 }
 .timeline-item-actions {
-    margin-top: 10px;
-    display: flex;
-    gap: 5px;
-    justify-content: center;
+margin-top: 10px;
+display: flex;
+gap: 5px;
+justify-content: center;
 }
 .timeline-item-actions button {
-    width: 24px;
-    height: 24px;
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 12px;
-    color: #999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+width: 24px;
+height: 24px;
+border: 1px solid #ddd;
+background: #fff;
+border-radius: 3px;
+cursor: pointer;
+font-size: 12px;
+color: #999;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 .timeline-item-actions button:hover {
-    background: #1a1a1a;
-    color: #fff;
-    border-color: #1a1a1a;
+background: #1a1a1a;
+color: #fff;
+border-color: #1a1a1a;
 }
 /* Location Section */
 .sec-location {
-    padding: 80px 40px;
-    text-align: center;
+padding: 80px 40px;
+text-align: center;
 }
 .location-image-wrap {
-    max-width: 600px;
-    margin: 30px auto 0;
-    overflow: hidden;
-    border-radius: 8px;
+max-width: 600px;
+margin: 30px auto 0;
+overflow: hidden;
+border-radius: 8px;
 }
 .location-image-wrap img,
 .location-image-wrap video {
-    width: 100%;
-    display: block;
+width: 100%;
+display: block;
 }
 .location-map-wrap {
-    max-width: 600px;
-    margin: 30px auto 0;
-    height: 300px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+max-width: 600px;
+margin: 30px auto 0;
+height: 300px;
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 /* Dress Code Section */
 .sec-dresscode {
-    padding: 80px 40px;
-    text-align: center;
+padding: 80px 40px;
+text-align: center;
 }
 .color-palette {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 40px;
+display: flex;
+justify-content: center;
+gap: 15px;
+flex-wrap: wrap;
+margin-top: 40px;
 }
 .color-item {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+width: 70px;
+height: 70px;
+border-radius: 50%;
+box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 /* Important Info Section */
 .sec-important {
-    padding: 80px 40px;
+padding: 80px 40px;
 }
 .slider-container {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
+max-width: 700px;
+margin: 0 auto;
+text-align: center;
 }
 .slider-slide {
-    display: none;
+display: none;
 }
 .slider-slide.active {
-    display: block;
+display: block;
 }
 .slider-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 20px;
+margin-top: 30px;
 }
 .slider-btn {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    color: #666;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
+width: 40px;
+height: 40px;
+border: 1px solid #ddd;
+background: #fff;
+border-radius: 50%;
+cursor: pointer;
+font-size: 18px;
+color: #666;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s;
 }
 .slider-btn:hover {
-    background: #1a1a1a;
-    color: #fff;
-    border-color: #1a1a1a;
+background: #1a1a1a;
+color: #fff;
+border-color: #1a1a1a;
 }
 .slider-dots {
-    display: flex;
-    gap: 8px;
+display: flex;
+gap: 8px;
 }
 .slider-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #ddd;
-    cursor: pointer;
-    transition: all 0.2s;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: #ddd;
+cursor: pointer;
+transition: all 0.2s;
 }
 .slider-dot.active {
-    background: #1a1a1a;
-    width: 24px;
-    border-radius: 4px;
+background: #1a1a1a;
+width: 24px;
+border-radius: 4px;
 }
 /* RSVP Section */
 .sec-rsvp {
-    padding: 80px 40px;
+padding: 80px 40px;
 }
 .rsvp-container {
-    max-width: 800px;
-    margin: 0 auto;
+max-width: 800px;
+margin: 0 auto;
 }
 .rsvp-form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-top: 40px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 40px;
+margin-top: 40px;
 }
 .form-group {
-    margin-bottom: 20px;
+margin-bottom: 20px;
 }
 .form-group label {
-    display: block;
-    font-size: 11px;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+display: block;
+font-size: 11px;
+color: #999;
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-bottom: 8px;
 }
 .form-group input[type="text"] {
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    background: transparent;
+width: 100%;
+padding: 10px 0;
+border: none;
+border-bottom: 1px solid #ddd;
+font-family: 'Montserrat', sans-serif;
+font-size: 14px;
+background: transparent;
 }
 .form-group input[type="text"]:focus {
-    outline: none;
-    border-bottom-color: #1a1a1a;
+outline: none;
+border-bottom-color: #1a1a1a;
+}
+.form-group textarea {
+width: 100%;
+padding: 10px;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-family: 'Montserrat', sans-serif;
+min-height: 80px;
 }
 .radio-group, .checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+display: flex;
+flex-direction: column;
+gap: 10px;
 }
 .radio-item, .checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: #666;
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 13px;
+color: #666;
 }
 .conditional-field {
-    margin-top: 10px;
-    padding-left: 26px;
-    animation: slideDown 0.3s ease;
+margin-top: 10px;
+padding-left: 26px;
+animation: slideDown 0.3s ease;
 }
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+from { opacity: 0; transform: translateY(-10px); }
+to { opacity: 1; transform: translateY(0); }
 }
 /* Contact Section */
 .sec-contact {
-    padding: 80px 40px;
-    position: relative;
+padding: 80px 40px;
+position: relative;
 }
 .contact-box {
-    max-width: 500px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 50px 40px;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(0,0,0,0.1);
-    border-radius: 8px;
+max-width: 500px;
+margin: 0 auto;
+background: #fff;
+padding: 50px 40px;
+text-align: center;
+box-shadow: 0 0 30px rgba(0,0,0,0.1);
+border-radius: 8px;
 }
 /* Wishes Section */
 .sec-wishes {
-    padding: 80px 40px;
-    text-align: center;
+padding: 80px 40px;
+text-align: center;
 }
 /* Editor item management */
 .editor-item {
-    background: #f9f9f9;
-    border: 1px solid #e8e8e8;
-    border-radius: 6px;
-    padding: 12px;
-    margin-bottom: 10px;
+background: #f9f9f9;
+border: 1px solid #e8e8e8;
+border-radius: 6px;
+padding: 12px;
+margin-bottom: 10px;
 }
 .editor-item-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 8px;
 }
 .editor-item-header .drag-handle {
-    cursor: grab;
-    color: #ccc;
-    font-size: 14px;
+cursor: grab;
+color: #ccc;
+font-size: 14px;
 }
 .editor-item-title {
-    flex: 1;
-    font-size: 12px;
-    font-weight: 500;
+flex: 1;
+font-size: 12px;
+font-weight: 500;
 }
 .editor-item-actions {
-    display: flex;
-    gap: 4px;
+display: flex;
+gap: 4px;
 }
 .editor-item-actions button {
-    width: 24px;
-    height: 24px;
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 11px;
-    color: #999;
+width: 24px;
+height: 24px;
+border: 1px solid #ddd;
+background: #fff;
+border-radius: 3px;
+cursor: pointer;
+font-size: 11px;
+color: #999;
 }
 .editor-item-actions button:hover {
-    background: #1a1a1a;
-    color: #fff;
-    border-color: #1a1a1a;
+background: #1a1a1a;
+color: #fff;
+border-color: #1a1a1a;
 }
 .editor-item-content {
-    padding-top: 8px;
-    border-top: 1px solid #eee;
+padding-top: 8px;
+border-top: 1px solid #eee;
 }
 /* Divider */
 .divider {
-    height: 1px;
-    background: #e0e0e0;
-    margin: 20px 0;
+height: 1px;
+background: #e0e0e0;
+margin: 20px 0;
 }
 /* Section separator */
 .section-separator {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #ddd, transparent);
-    margin: 25px 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #ddd, transparent);
+margin: 25px 0;
 }
 /* Responsive */
 @media (max-width: 768px) {
-    .editor-container {
-        flex-direction: column;
-    }
-    .sidebar {
-        width: 100%;
-        min-width: 100%;
-        height: 50vh;
-    }
-    .preview-area {
-        height: 50vh;
-    }
-    
-    /* MOBILE OPTIMIZATION FOR PREVIEW */
-    .preview-section-bg {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-    }
-    
-    .preview-section-bg img,
-    .preview-section-bg video {
-        min-height: 100%;
-        min-width: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
-    
-    .sec-hero, .sec-save-date {
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-        min-height: fill-available;
-    }
-    
-    .countdown-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .countdown-item { padding: 15px 8px; }
-    .countdown-number { font-size: 36px; }
-    
-    .timeline-items.cols-3, .timeline-items.cols-4, .timeline-items.cols-5 {
-        grid-template-columns: 1fr;
-    }
-    .timeline-line { display: none; }
-    
-    .rsvp-form-grid { grid-template-columns: 1fr; }
-    
-    .calendar-grid { gap: 4px; max-width: 100%; }
-    .cal-day-header { font-size: 9px; padding: 4px 2px; letter-spacing: 0; }
-    .cal-day { font-size: 11px; }
-    .cal-day.active { width: 32px; height: 32px; }
-    
-    .contact-box {
-        max-width: calc(100% - 20px);
-        padding: 30px 20px;
-    }
-    
-    .location-image-wrap,
-    .location-map-wrap { max-width: 100%; }
-    
-    .color-palette { gap: 8px; }
-    .color-item { width: 50px; height: 50px; }
+.editor-container {
+flex-direction: column;
 }
-
+.sidebar {
+width: 100%;
+min-width: 100%;
+height: 50vh;
+}
+.preview-area {
+height: 50vh;
+}
+/* MOBILE OPTIMIZATION FOR PREVIEW */
+.preview-section-bg {
+-webkit-transform: translateZ(0);
+transform: translateZ(0);
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+}
+.preview-section-bg img,
+.preview-section-bg video {
+min-height: 100%;
+min-width: 100%;
+object-fit: cover;
+object-position: center;
+}
+.sec-hero, .sec-save-date {
+min-height: 100vh;
+min-height: -webkit-fill-available;
+min-height: fill-available;
+}
+.countdown-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.countdown-item { padding: 15px 8px; }
+.countdown-number { font-size: 36px; }
+.timeline-items.cols-3, .timeline-items.cols-4, .timeline-items.cols-5 {
+grid-template-columns: 1fr;
+}
+.timeline-line { display: none; }
+.rsvp-form-grid { grid-template-columns: 1fr; }
+.calendar-grid { gap: 4px; max-width: 100%; }
+.cal-day-header { font-size: 9px; padding: 4px 2px; letter-spacing: 0; }
+.cal-day { font-size: 11px; }
+.cal-day.active { width: 32px; height: 32px; }
+.contact-box {
+max-width: calc(100% - 20px);
+padding: 30px 20px;
+}
+.location-image-wrap,
+.location-map-wrap { max-width: 100%; }
+.color-palette { gap: 8px; }
+.color-item { width: 50px; height: 50px; }
+}
 @media (max-width: 380px) {
-    .calendar-grid { gap: 2px; }
-    .cal-day-header { font-size: 8px; }
-    .cal-day { font-size: 10px; }
-    .cal-day.active { width: 28px; height: 28px; }
-    .countdown-number { font-size: 28px; }
-    .contact-box { padding: 25px 15px; }
+.calendar-grid { gap: 2px; }
+.cal-day-header { font-size: 8px; }
+.cal-day { font-size: 10px; }
+.cal-day.active { width: 28px; height: 28px; }
+.countdown-number { font-size: 28px; }
+.contact-box { padding: 25px 15px; }
 }
-
 @media (min-width: 769px) and (max-width: 1024px) {
-    .countdown-grid { gap: 15px; }
-    .timeline-items.cols-5 { grid-template-columns: repeat(3, 1fr); }
-    .contact-box { max-width: calc(100% - 40px); }
+.countdown-grid { gap: 15px; }
+.timeline-items.cols-5 { grid-template-columns: repeat(3, 1fr); }
+.contact-box { max-width: calc(100% - 40px); }
 }
 /* Add item button */
 .add-item-btn {
-    width: 100%;
-    padding: 10px;
-    border: 1px dashed #ddd;
-    background: none;
-    border-radius: 6px;
-    cursor: pointer;
-    color: #999;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s;
+width: 100%;
+padding: 10px;
+border: 1px dashed #ddd;
+background: none;
+border-radius: 6px;
+cursor: pointer;
+color: #999;
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 1px;
+transition: all 0.3s;
 }
 .add-item-btn:hover {
-    border-color: #1a1a1a;
-    color: #1a1a1a;
+border-color: #1a1a1a;
+color: #1a1a1a;
 }
 /* Typography preview */
 .font-preview {
-    font-size: 16px;
-    padding: 8px;
-    background: #f5f5f5;
-    border-radius: 4px;
-    margin-top: 5px;
-    color: #333;
+font-size: 16px;
+padding: 8px;
+background: #f5f5f5;
+border-radius: 4px;
+margin-top: 5px;
+color: #333;
 }
 /* Toggle switch */
 .toggle-switch {
-    position: relative;
-    width: 40px;
-    height: 22px;
-    background: #ddd;
-    border-radius: 11px;
-    cursor: pointer;
-    transition: background 0.3s;
+position: relative;
+width: 40px;
+height: 22px;
+background: #ddd;
+border-radius: 11px;
+cursor: pointer;
+transition: background 0.3s;
 }
 .toggle-switch.active {
-    background: #1a1a1a;
+background: #1a1a1a;
 }
 .toggle-switch::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 18px;
-    height: 18px;
-    background: #fff;
-    border-radius: 50%;
-    transition: transform 0.3s;
+content: '';
+position: absolute;
+top: 2px;
+left: 2px;
+width: 18px;
+height: 18px;
+background: #fff;
+border-radius: 50%;
+transition: transform 0.3s;
 }
 .toggle-switch.active::after {
-    transform: translateX(18px);
+transform: translateX(18px);
 }
 /* Color palette editor */
 .color-palette-editor {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
 }
 .color-item-editor {
-    position: relative;
-    width: 44px;
-    height: 44px;
+position: relative;
+width: 44px;
+height: 44px;
 }
 .color-item-editor input[type="color"] {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 0;
+width: 100%;
+height: 100%;
+border: none;
+border-radius: 50%;
+cursor: pointer;
+padding: 0;
 }
 .color-item-editor .remove-color {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #e74c3c;
-    color: #fff;
-    border: none;
-    font-size: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+position: absolute;
+top: -4px;
+right: -4px;
+width: 16px;
+height: 16px;
+border-radius: 50%;
+background: #e74c3c;
+color: #fff;
+border: none;
+font-size: 10px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 /* Notification */
 .notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 25px;
-    background: #1a1a1a;
-    color: #fff;
-    border-radius: 8px;
-    font-size: 13px;
-    z-index: 10000;
-    transform: translateX(120%);
-    transition: transform 0.3s;
+position: fixed;
+top: 20px;
+right: 20px;
+padding: 15px 25px;
+background: #1a1a1a;
+color: #fff;
+border-radius: 8px;
+font-size: 13px;
+z-index: 10000;
+transform: translateX(120%);
+transition: transform 0.3s;
 }
 .notification.show {
-    transform: translateX(0);
+transform: translateX(0);
 }
 .notification.success {
-    background: #4CAF50;
+background: #4CAF50;
 }
 </style>
 </head>
@@ -1455,9 +1449,9 @@ textColor: '#333333',
 textAlign: 'center',
 telegramBotToken: '',
 telegramChatId: '',
-formspreeUrl: '',
+formspreeUrl: 'https://formspree.io/f/mkoawegk',
 notifyEmail: '',
-submitMethod: 'telegram',
+submitMethod: 'formspree',
 paddingTop: 80,
 paddingBottom: 80,
 paddingLeft: 40,
@@ -1715,9 +1709,9 @@ textColor: '#333333',
 textAlign: 'center',
 telegramBotToken: '',
 telegramChatId: '',
-formspreeUrl: '',
+formspreeUrl: 'https://formspree.io/f/mkoawegk',
 notifyEmail: '',
-submitMethod: 'telegram',
+submitMethod: 'formspree',
 paddingTop: 80,
 paddingBottom: 80,
 paddingLeft: 40,
@@ -2040,7 +2034,7 @@ html += `
 <option value="telegram" ${c.submitMethod === 'telegram' ? 'selected' : ''}> Telegram бот (рекомендуется)</option>
 <option value="formspree" ${c.submitMethod === 'formspree' ? 'selected' : ''}>📧 На Email через Formspree</option>
 <option value="mailto" ${c.submitMethod === 'mailto' ? 'selected' : ''}>✉️ На Email (mailto)</option>
-<option value="local" ${c.submitMethod === 'local' ? 'selected' : ''}>💾 Только локально</option>
+<option value="local" ${c.submitMethod === 'local' ? 'selected' : ''}> Только локально</option>
 </select>
 </div>
 
@@ -2053,8 +2047,8 @@ html += `
 <input class="field-input" value="${c.telegramChatId || ''}" onchange="updateContent('${section.id}', 'telegramChatId', this.value)" placeholder="987654321">
 </div>
 <div class="field-group">
-<label class="field-label">Formspree URL (для email)</label>
-<input class="field-input" value="${c.formspreeUrl || ''}" onchange="updateContent('${section.id}', 'formspreeUrl', this.value)" placeholder="https://formspree.io/f/xxxxx">
+<label class="field-label">Formspree URL</label>
+<input class="field-input" value="${c.formspreeUrl || 'https://formspree.io/f/mkoawegk'}" onchange="updateContent('${section.id}', 'formspreeUrl', this.value)" placeholder="https://formspree.io/f/xxxxx">
 </div>
 <div class="field-group">
 <label class="field-label">Email для mailto</label>
@@ -2064,7 +2058,7 @@ html += `
 <div style="background:#f0f7ff; padding:12px; border-radius:6px; font-size:11px; color:#555; line-height:1.6; margin-top:10px;">
 <strong>💡 Подсказка:</strong><br>
 Для Telegram: создайте бота через @BotFather, узнайте Chat ID у @userinfobot<br>
-Для Email: зарегистрируйтесь на formspree.io
+Для Formspree: зарегистрируйтесь на formspree.io и вставьте ваш endpoint
 </div>
 `;
 }
@@ -2685,12 +2679,17 @@ ${(c.slides || []).map((_, idx) => `<div class="slider-dot ${idx === 0 ? 'active
 `;
 break;
 case 'rsvp':
+// Formspree: используем стандартную отправку формы
+const formspreeAction = c.submitMethod === 'formspree' && c.formspreeUrl ? `action="${c.formspreeUrl}" method="POST"` : '';
 sectionHtml += `
 <div style="padding:${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px;">
 <div class="rsvp-container">
 <h2 style="font-family:${fontFamily}; font-size:${fontSize}px; font-weight:300; letter-spacing:6px; text-align:${textAlign}; margin-bottom:20px; color:${textColor};">${c.title || ''}</h2>
 <p style="text-align:${textAlign}; font-size:14px; color:#666; margin-bottom:40px; font-family:${globalFontBody};">${c.deadline || ''}<br>${formatDate(weddingDate)}</p>
-<form id="rsvpForm-${section.id}" onsubmit="return submitRSVP(event, '${section.id}')">
+<form id="rsvpForm-${section.id}" ${formspreeAction} onsubmit="return submitRSVP(event, '${section.id}')">
+<!-- Formspree hidden fields -->
+<input type="hidden" name="_subject" value="💌 RSVP от гостя">
+<input type="hidden" name="_next" value="">
 <div class="rsvp-form-grid">
 <div>
 <h3 style="font-family:${fontFamily}; font-size:18px; font-weight:400; margin-bottom:20px; color:#666;">Пожалуйста, подтвердите Ваше присутствие</h3>
@@ -2738,7 +2737,7 @@ sectionHtml += `
 </div>
 <div class="form-group" style="margin-top:20px;">
 <label>Пожелания / аллергии / комментарии</label>
-<textarea name="wishes" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px; font-family:'Montserrat',sans-serif; min-height:80px;" placeholder="Напишите, если есть что-то важное..."></textarea>
+<textarea name="wishes" placeholder="Напишите, если есть что-то важное..."></textarea>
 </div>
 </div>
 <div style="text-align:center; grid-column:1/-1; margin-top:20px;">
@@ -2917,11 +2916,37 @@ if (pairField) pairField.style.display = pairChecked ? 'block' : 'none';
 if (familyField) familyField.style.display = familyChecked ? 'block' : 'none';
 }
 async function submitRSVP(event, sectionId) {
+const section = sections.find(s => s.id === sectionId);
+if (!section) return true;
+const c = section.content;
+const method = c.submitMethod || 'formspree';
+
+// Если выбран Formspree - разрешаем стандартную отправку формы
+// (форма уже имеет action и method="POST")
+if (method === 'formspree' && c.formspreeUrl) {
+// Сохраняем данные локально перед отправкой
+const form = event.target;
+const formData = new FormData(form);
+const savedResponses = JSON.parse(localStorage.getItem('rsvpResponses') || '[]');
+savedResponses.push({
+date: new Date().toISOString(),
+guestName: formData.get('guestName'),
+attendance: formData.get('attendance'),
+companion: formData.getAll('companion'),
+pairName: formData.get('pairName'),
+childrenInfo: formData.get('childrenInfo'),
+guestsCount: formData.get('guestsCount'),
+drinks: formData.getAll('drinks'),
+wishes: formData.get('wishes')
+});
+localStorage.setItem('rsvpResponses', JSON.stringify(savedResponses));
+// Позволяем форме отправиться стандартным способом
+return true;
+}
+
+// Для других методов (Telegram, mailto, local) - перехватываем отправку
 event.preventDefault();
 const form = event.target;
-const section = sections.find(s => s.id === sectionId);
-if (!section) return false;
-const c = section.content;
 const formData = new FormData(form);
 const name = formData.get('guestName');
 const attendance = formData.get('attendance');
@@ -2931,17 +2956,17 @@ const childrenInfo = formData.get('childrenInfo') || '';
 const guestsCount = formData.get('guestsCount') || '';
 const drinks = formData.getAll('drinks');
 const wishes = formData.get('wishes') || '';
-let message = ` *НОВЫЙ ОТВЕТ НА ПРИГЛАШЕНИЕ*\n\n`;
-message += ` *Имя:* ${name}\n`;
+let message = `💌 *НОВЫЙ ОТВЕТ НА ПРИГЛАШЕНИЕ*\n\n`;
+message += `👤 *Имя:* ${name}\n`;
 message += `✅ *Присутствие:* ${attendance === 'yes' ? 'Придёт' : 'Не сможет'}\n`;
 if (companions.length > 0) {
-message += ` *С кем придёт:* ${companions.join(', ')}\n`;
+message += `👥 *С кем придёт:* ${companions.join(', ')}\n`;
 }
-if (pairName) message += ` *Имя пары:* ${pairName}\n`;
+if (pairName) message += `💑 *Имя пары:* ${pairName}\n`;
 if (childrenInfo) message += `👶 *Дети:* ${childrenInfo}\n`;
 if (guestsCount) message += `🔢 *Количество гостей:* ${guestsCount}\n`;
-if (drinks.length > 0) message += ` *Напитки:* ${drinks.join(', ')}\n`;
-if (wishes) message += ` *Пожелания:* ${wishes}\n`;
+if (drinks.length > 0) message += `🍷 *Напитки:* ${drinks.join(', ')}\n`;
+if (wishes) message += `💭 *Пожелания:* ${wishes}\n`;
 message += `\n📅 _Отправлено: ${new Date().toLocaleString('ru-RU')}_`;
 const savedResponses = JSON.parse(localStorage.getItem('rsvpResponses') || '[]');
 savedResponses.push({
@@ -2951,7 +2976,6 @@ guestsCount, drinks, wishes
 });
 localStorage.setItem('rsvpResponses', JSON.stringify(savedResponses));
 let success = false;
-const method = c.submitMethod || 'telegram';
 try {
 if (method === 'telegram' && c.telegramBotToken && c.telegramChatId) {
 const url = `https://api.telegram.org/bot${c.telegramBotToken}/sendMessage`;
@@ -2970,18 +2994,6 @@ success = true;
 } else {
 alert('Ошибка отправки: ' + (data.description || 'неизвестная ошибка') + '\n\nПроверьте токен бота и Chat ID.');
 }
-} else if (method === 'formspree' && c.formspreeUrl) {
-const response = await fetch(c.formspreeUrl, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-body: JSON.stringify({
-name, attendance, companions: companions.join(', '),
-pairName, childrenInfo, guestsCount,
-drinks: drinks.join(', '), wishes,
-_subject: `💌 RSVP от ${name}`
-})
-});
-if (response.ok) success = true;
 } else if (method === 'mailto' && c.notifyEmail) {
 const subject = encodeURIComponent(`RSVP от ${name}`);
 const body = encodeURIComponent(message.replace(/\*/g, '').replace(/_/g, ''));
@@ -3207,6 +3219,7 @@ img, video { max-width: 100%; height: auto; display: block; }
 .form-group label { display: block; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
 .form-group input[type="text"] { width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #ddd; font-family: 'Montserrat', sans-serif; font-size: 14px; background: transparent; }
 .form-group input[type="text"]:focus { outline: none; border-bottom-color: #1a1a1a; }
+.form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Montserrat', sans-serif; min-height: 80px; }
 .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 10px; }
 .radio-item, .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; }
 .conditional-field { margin-top: 10px; padding-left: 26px; animation: slideDown 0.3s ease; }
@@ -3297,11 +3310,32 @@ if (pairField) pairField.style.display = pairChecked ? 'block' : 'none';
 if (familyField) familyField.style.display = familyChecked ? 'block' : 'none';
 }
 async function submitRSVP(event, sectionId) {
+const section = window.invitationSections ? window.invitationSections.find(s => s.id === sectionId) : null;
+if (!section) return true;
+const c = section.content;
+const method = c.submitMethod || 'formspree';
+// Если выбран Formspree - разрешаем стандартную отправку формы
+if (method === 'formspree' && c.formspreeUrl) {
+const form = event.target;
+const formData = new FormData(form);
+const savedResponses = JSON.parse(localStorage.getItem('rsvpResponses') || '[]');
+savedResponses.push({
+date: new Date().toISOString(),
+guestName: formData.get('guestName'),
+attendance: formData.get('attendance'),
+companion: formData.getAll('companion'),
+pairName: formData.get('pairName'),
+childrenInfo: formData.get('childrenInfo'),
+guestsCount: formData.get('guestsCount'),
+drinks: formData.getAll('drinks'),
+wishes: formData.get('wishes')
+});
+localStorage.setItem('rsvpResponses', JSON.stringify(savedResponses));
+return true;
+}
+// Для других методов - перехватываем отправку
 event.preventDefault();
 const form = event.target;
-const section = window.invitationSections ? window.invitationSections.find(s => s.id === sectionId) : null;
-if (!section) return false;
-const c = section.content;
 const formData = new FormData(form);
 const name = formData.get('guestName');
 const attendance = formData.get('attendance');
@@ -3311,21 +3345,20 @@ const childrenInfo = formData.get('childrenInfo') || '';
 const guestsCount = formData.get('guestsCount') || '';
 const drinks = formData.getAll('drinks');
 const wishes = formData.get('wishes') || '';
-let message = \` *НОВЫЙ ОТВЕТ НА ПРИГЛАШЕНИЕ*\\n\\n\`;
+let message = \`💌 *НОВЫЙ ОТВЕТ НА ПРИГЛАШЕНИЕ*\\n\\n\`;
 message += \`👤 *Имя:* \${name}\\n\`;
 message += \`✅ *Присутствие:* \${attendance === 'yes' ? 'Придёт' : 'Не сможет'}\\n\`;
 if (companions.length > 0) message += \`👥 *С кем придёт:* \${companions.join(', ')}\\n\`;
 if (pairName) message += \`💑 *Имя пары:* \${pairName}\\n\`;
 if (childrenInfo) message += \`👶 *Дети:* \${childrenInfo}\\n\`;
 if (guestsCount) message += \`🔢 *Количество гостей:* \${guestsCount}\\n\`;
-if (drinks.length > 0) message += \` *Напитки:* \${drinks.join(', ')}\\n\`;
+if (drinks.length > 0) message += \`🍷 *Напитки:* \${drinks.join(', ')}\\n\`;
 if (wishes) message += \`💭 *Пожелания:* \${wishes}\\n\`;
 message += \`\\n📅 _Отправлено: \${new Date().toLocaleString('ru-RU')}_\`;
 const savedResponses = JSON.parse(localStorage.getItem('rsvpResponses') || '[]');
 savedResponses.push({ date: new Date().toISOString(), name, attendance, companions, pairName, childrenInfo, guestsCount, drinks, wishes });
 localStorage.setItem('rsvpResponses', JSON.stringify(savedResponses));
 let success = false;
-const method = c.submitMethod || 'telegram';
 try {
 if (method === 'telegram' && c.telegramBotToken && c.telegramChatId) {
 const url = \`https://api.telegram.org/bot\${c.telegramBotToken}/sendMessage\`;
@@ -3333,9 +3366,6 @@ const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': '
 const data = await response.json();
 if (data.ok) success = true;
 else alert('Ошибка отправки: ' + (data.description || 'неизвестная ошибка'));
-} else if (method === 'formspree' && c.formspreeUrl) {
-const response = await fetch(c.formspreeUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ name, attendance, companions: companions.join(', '), pairName, childrenInfo, guestsCount, drinks: drinks.join(', '), wishes, _subject: \`💌 RSVP от \${name}\` }) });
-if (response.ok) success = true;
 } else if (method === 'mailto' && c.notifyEmail) {
 const subject = encodeURIComponent(\`RSVP от \${name}\`);
 const body = encodeURIComponent(message.replace(/\\*/g, '').replace(/_/g, ''));
